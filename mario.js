@@ -23,7 +23,7 @@ var game = function() {
    Q.load( "mainTitle.png, coin.mp3, music_die.mp3, music_level_complete.mp3, music_main.mp3", function(){
      Q.sheet("mainTitle","mainTitle.png", { tilew: 320, tileh: 480 });
      Q.clearStages();
-     Q.stageScene("startGame");
+     Q.stageScene("startFreeGamePortal");
    });
 
    //Cargamos el contenido del TMX
