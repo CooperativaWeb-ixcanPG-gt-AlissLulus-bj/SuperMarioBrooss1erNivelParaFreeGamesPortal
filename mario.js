@@ -23,7 +23,7 @@ var game = function() {
    Q.load( "mainTitle.png, coin.mp3, music_die.mp3, music_level_complete.mp3, music_main.mp3", function(){
      Q.sheet("mainTitle","mainTitle.png", { tilew: 320, tileh: 480 });
      Q.clearStages();
-     Q.stageScene("startFreeGamePortal");
+     Q.stageScene("startGame");
    });
 
    //Cargamos el contenido del TMX
@@ -63,7 +63,7 @@ var game = function() {
       //Esta condicion permite a mario morir cuando se cae por debajo del nivel del suelo
       if(!this.p.muerto){
 	      if(this.p.y >= 600){
-	        Q.stageScene("endGame",1, { label: "¡Haz muerto!" });
+	        Q.stageScene("endGame",1, { label: "¡Has muerto!" });
 	        this.destroy();
 	      }
 	      //Esta condicion activa las animaciones de andar y parar en funcion de la direccion de Mario
@@ -138,7 +138,7 @@ trigger: event to trigger when the animation is done - useful for doing somethin
       //Definimos las acciones al chocar por la izquierda, derecha y abajo con el Mario. En este caso Mario muere
       this.entity.on("bump.left,bump.right,bump.bottom",function(collision) {
         if(collision.obj.isA("Mario")) {
-          Q.stageScene("endGame",1, { label: "¡Haz muerto!" });
+          Q.stageScene("endGame",1, { label: "¡Has muerto!" });
 
           collision.obj.p.muerto = true;
           collision.obj.p.sensor = true;
@@ -217,7 +217,7 @@ trigger: event to trigger when the animation is done - useful for doing somethin
       //Se definen las acciones al chocar con el sprite desde la izquierda, derecha o abajo. Si es Mario se acaba la partida.
       this.on("bump.left,bump.right,bump.bottom,bump.top",function(collision) {
         if(collision.obj.isA("Mario")) {
-          Q.stageScene("endGame",1, { label: "¡Ganaste!\nTiempo: " + Q.state.get("current_time").toFixed(2) });
+          Q.stageScene("endGame",1, { label: "¡Has ganado!\nTiempo: " + Q.state.get("current_time").toFixed(2) });
           collision.obj.destroy();
         }
       });
@@ -410,7 +410,7 @@ var GLOBAL_STAGE;
 
     //En funcion el mensaje pasado reproduciremos una u otra cancion
     Q.audio.stop();
-    if(stage.options.label !== "¡Haz muerto!"){
+    if(stage.options.label !== "¡Has muerto!"){
       Q.audio.play('music_level_complete.mp3');
     }
     else{
@@ -425,7 +425,7 @@ var GLOBAL_STAGE;
       x: 0, y: 0, fill: "#CCCCCC", label: "Jugar de nuevo", w:Q.width/2, h: Q.height/10, font: "400 "+Q.height/23.4+"px arial"
     }));
 
-	if(stage.options.label !== "¡Haz muerto!"){
+	if(stage.options.label !== "¡Has muerto!"){
 		var label = container.insert(new Q.UI.Text({
 	      x:10, y: -30 - button.p.h - Q.height/24, label: stage.options.label, size: Q.height/24, color: "yellow"
 	    }));
